@@ -1,0 +1,42 @@
+% layout 'default';
+%= include 'menu';
+<style>
+  #container { margin-left: 8em; margin-right: 8em }
+  #films td, #films th { border-bottom: thin solid grey; vertical-align: top; width: 36em; padding-left: 6px; padding-right: 6px; padding-top: 3px; padding-bottom: 3px }
+  #films tr td:nth-of-type(1) { width: 24em}
+  #films tr td.release_dates { width: 6em}
+  #films tr td.wd_id { width: 6em}
+  #films tr th { text-align: left }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+	document.querySelectorAll("#films td")
+	    .forEach(td => {
+		td.addEventListener("click", function () {
+		    var wd_id = td.parentNode.querySelector(".wd_id").innerHTML;
+		    if (wd_id) {
+			window.location.href = "<%= url_for("/data/") %>" + (td.parentNode.querySelector(".wd_id").innerHTML)
+		    } else {
+			document.querySelector("dialog#edit_modal #filename").innerHTML = td.parentNode.querySelector(".file").innerHTML;
+			document.getElementById('edit_modal').showModal();
+		    }
+		})
+	    })
+    })
+    </script>
+    <div id="container">
+<table id="films">
+  <tr>
+    % for my $field ($fields->@*) {
+    <th><%= $field %></th>
+    % }
+  </tr>  
+  % for my $item ($items->@*) {
+  <tr>
+    % for my $field ($fields->@*) {
+    <td class="<%= $field %>"><%= $item->{$field} %></td>
+    % }
+  </tr>
+  % }
+</table>    
+%= include 'edit_modal'
