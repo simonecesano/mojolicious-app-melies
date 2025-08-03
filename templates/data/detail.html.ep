@@ -1,0 +1,20 @@
+% layout 'default';
+%= include 'menu';
+<style>
+  #container { margin-left: 8em; margin-right: 8em }
+  td, th { border-bottom: thin solid grey; vertical-align: top; padding-left: 6px; padding-right: 6px; padding-top: 3px; padding-bottom: 3px }
+</style>
+<div id="container">
+  <h2><%= $info->{P1476}->{values}->[0] %></h2>
+<table>
+% for my $f ($fields->@*) {
+<tr>
+  % if ($info->{$f}) {
+  <td><%= $info->{$f}->{description} %></td>
+  <td><%= $f %></td>
+  <td><%= join ", ", ($info->{$f}->{values} || [])->@* %></td>
+  % }
+</tr>
+% }
+</table>
+</div>
