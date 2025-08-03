@@ -1,0 +1,31 @@
+% layout 'default';
+%= include 'menu';
+<style>
+  #container { margin-left: 8em; margin-right: 8em }
+</style>
+<div id="container">
+<table>
+% for my $item ($items->@*) {
+  <tr>
+    % for my $field ($fields->@*) {
+    <td class="<%= $field %>"><%= $item->{$field} %></td>
+    % }
+    <td>
+      <input class="film_id" type="text">
+      <button>search</button>
+      <button
+	hx-post="/films/curate"
+	hx-target="closest tr"
+	hx-include="closest tr"
+	hx-vals='js:{ 
+                      id: event.target.closest("tr").querySelector("input.film_id").value, 
+                      file: event.target.closest("tr").querySelector("td.file").innerHTML 
+                }'
+	>update</button>
+      <button>blacklist</button>
+    </td>
+  </tr>
+  % }
+</table>
+</div>
+
