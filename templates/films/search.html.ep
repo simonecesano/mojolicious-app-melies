@@ -1,0 +1,12 @@
+% layout 'default';
+%= include 'search_style';
+%= include 'menu';
+<div id="container">
+<form action="/films/search" method="GET">
+  <input name="q" type="text" placeholder="Enter search text">
+  <div class="buttons">
+    <button>Search</button>
+    <button>Clear</button>
+  </div>
+  </form>
+</div>  
