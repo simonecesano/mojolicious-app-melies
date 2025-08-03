@@ -1,0 +1,28 @@
+<style>
+  .navbar {
+font-weight: bold;
+    display: flex;
+    background-color: #333;
+    padding: 10px 20px;
+    margin-top: 0px;
+    margin-bottom: 24px;
+}
+
+.navbar a {
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.navbar a:hover {
+    background-color: #575757;
+    border-radius: 0px;
+}
+</style>
+<nav class="navbar">
+  <a href="/films">All Films</a>
+  <a href="#browse">Browse</a>
+  <a href="/films/search">Search</a>
+  <a href="/films/curate">Curate</a>
+</nav>
