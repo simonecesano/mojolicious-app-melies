@@ -1,0 +1,34 @@
+% unless ((param "mode") eq "snippet") {
+% layout 'default';
+%= include 'menu';
+<style>
+  #container { margin-left: 8em; margin-right: 8em }
+  #films td, #films th { border-bottom: thin solid grey; vertical-align: top; width: 36em; padding-left: 6px; padding-right: 6px; padding-top: 3px; padding-bottom: 3px }
+  #films tr td:nth-of-type(1) { width: 24em}
+  #films tr td.release_dates { width: 6em}
+  #films tr td.wd_id { width: 6em}
+  #films tr th { text-align: left }
+</style>
+% }
+<div id="container">
+% use autobox::Lookup;
+<table id="films">
+  <tr><th>id</th><th>label</th><th>description</th><th>title</th></tr>
+% for my $d ($entities->@*) {
+<tr>
+  <td>
+    <%= $d->get("id") %>
+  </td>
+  <td>
+    <%= [ map { $d->get("labels.$_.value") } qw/en it de fr es/]->[0] %>
+  </td>
+  <td>
+    <%= [ map { $d->get("descriptions.$_.value") } qw/en it de fr es/]->[0] %>
+  </td>
+  <td>
+      <%= join " / ", ($d->get("claims.P1476.[].mainsnak.datavalue.value.text") || [])->@* %>
+  </td>
+</tr>
+% }
+</table>
+</div>
