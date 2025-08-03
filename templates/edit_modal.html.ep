@@ -1,0 +1,61 @@
+ <style>
+    dialog {
+      padding: 0px;
+      border: none;
+    border-radius: 0;
+
+    max-width: 33.33vw;   /* 1/3 of viewport width */
+    max-height: 33.33vh;  /* 1/3 of viewport height */
+    overflow: auto;       /* allows scrolling if content exceeds bounds */    
+    }
+
+    dialog::backdrop {
+      background: rgba(0,0,0,0.5);
+    }
+  .modal-header {
+    background: #000;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    font-weight: bold;
+  }
+
+  .modal-header .close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+    outline: none;
+  }
+    .modal-body {
+    margin: 12px
+  }
+
+  </style>
+  <dialog id="edit_modal">
+  <div class="modal-header">
+    <span>Edit</span>
+    <button class="close-btn" id="closeBtn" hx-on:click="this.closest('dialog').close()">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+    <p>Edit information for:<br/><span id="filename"></span></p>
+    <button hx-on:click="{
+                          const filename = this.parentNode.querySelector('#filename').innerHTML.replace(/\.[^\.]+$/, '')
+                          const base_url = &quot;<%= url_for("/data/search/") %>&quot;
+                          window.location.href = base_url + &quot;?q=&quot; + filename
+                          this.closest('dialog').close()
+                         }"
+	    >Search Id</button>
+    <button hx-on:click="{
+                          const filename = this.parentNode.querySelector('#filename').innerHTML.replace(/\.[^\.]+$/, '')
+                          const base_url = &quot;<%= url_for("/data/search/") %>&quot;
+                          this.closest('dialog').close()
+                         }"
+	    >Blacklist</button>
+    <button hx-on:click="this.closest('dialog').close()" id="closeBtn">Close</button>
+    </div>
+  </dialog>
